@@ -1,0 +1,33 @@
+info:
+  title: Best Practices GKE Cluster
+  author: Arthur Feldkamp
+  description: Creates a Google Kubernetes Engine cluster observing current best practices for authentication and networking.
+  version: 1.0
+
+required:
+  - zone
+
+properties:
+    zone:
+      type        : string
+      description : Zone to deploy GKE cluster to.
+    
+    machineType:
+      enum        : ["e2-standard-2","e2-standard-4","e2-standard-8","e2-highmem-2","e2-highcpu-2","e2-highcpu-4","e2-highcpu-8"]
+      default     : e2-standard-2
+      description : Machine types smaller than e2-standard-2 will cause errors with WP Helm chart!
+
+    initialNodeCount:
+      type        : integer
+      default     : 3
+      description : Number of nodes to start the cluster with.
+
+    minNodeCount:
+      type        : integer
+      default     : 1
+      description : Minimum number of nodes to maintain in the cluster.
+
+    maxNodeCount:
+      type        : integer
+      default     : 5
+      description : Maximum number of nodes to allow in the cluster.

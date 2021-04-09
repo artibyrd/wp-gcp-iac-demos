@@ -1,0 +1,12 @@
+# Performs a Packer build based on the `packer.json` configuration and creates a GCE image.
+# Make sure you have built the packer build step and pushed it to your project first!
+steps:
+- name: 'gcr.io/$PROJECT_ID/packer'
+  args:
+  - build
+  - -var
+  - project_id=$PROJECT_ID
+  - packer.json
+  timeout: 3600s
+tags: ['cloud-builders-community']
+timeout: 3600s

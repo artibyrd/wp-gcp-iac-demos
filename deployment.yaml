@@ -1,0 +1,12 @@
+imports:
+- path: deployment.jinja
+
+resources:
+- name: dm-gke
+  type: deployment.jinja
+  properties:
+    zone: us-west1-b
+    machineType: e2-standard-2
+    initialNodeCount: 3
+    minNodeCount: 1
+    maxNodeCount: 5

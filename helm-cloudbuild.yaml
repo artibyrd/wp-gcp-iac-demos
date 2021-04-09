@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/$PROJECT_ID/helm'
+  args: ['install', 'helm/', '--set', 'google.projectId=$PROJECT_ID', '--generate-name']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-west1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+tags: ['cloud-builders-community']

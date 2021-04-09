@@ -1,0 +1,66 @@
+resources:
+- name: {{ env["deployment"] }}
+  type: container.v1.cluster
+  properties:
+    zone: {{ properties["zone"] }}
+    cluster:
+      name: cluster-1
+      masterAuth:
+        clientCertificateConfig: {}
+      network: projects/{{ env["project"] }}/global/networks/default
+      addonsConfig:
+        httpLoadBalancing: {}
+        horizontalPodAutoscaling: {}
+        kubernetesDashboard:
+          disabled: true
+        dnsCacheConfig: {}
+        configConnectorConfig:
+          enabled: true
+        gcePersistentDiskCsiDriverConfig:
+          enabled: true
+      subnetwork: projects/{{ env["project"] }}/regions/us-west1/subnetworks/default
+      nodePools:
+        - name: default-pool
+          config:
+            machineType: {{ properties["machineType"] }}
+            diskSizeGb: 100
+            oauthScopes:
+              - https://www.googleapis.com/auth/cloud-platform
+            metadata:
+              disable-legacy-endpoints: "true"
+            imageType: COS
+            diskType: pd-standard
+            shieldedInstanceConfig:
+              enableIntegrityMonitoring: true
+          initialNodeCount: {{ properties["initialNodeCount"] }}
+          autoscaling:
+            enabled: true
+            minNodeCount: {{ properties["minNodeCount"] }}
+            maxNodeCount: {{ properties["maxNodeCount"] }}
+          management:
+            autoUpgrade: true
+            autoRepair: true
+          upgradeSettings:
+            maxSurge: 1
+      locations:
+        - {{ properties["zone"] }}
+      networkPolicy: {}
+      ipAllocationPolicy:
+        useIpAliases: true
+      masterAuthorizedNetworksConfig: {}
+      autoscaling: {}
+      defaultMaxPodsConstraint:
+        maxPodsPerNode: "110"
+      authenticatorGroupsConfig: {}
+      databaseEncryption:
+        state: DECRYPTED
+      shieldedNodes:
+        enabled: true
+      releaseChannel:
+        channel: REGULAR
+      workloadIdentityConfig:
+        workloadPool: {{ env["project"] }}.svc.id.goog
+      notificationConfig:
+        pubsub: {}
+      initialClusterVersion: 1.18.16-gke.302
+      location: us-west1-b

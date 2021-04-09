@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'us-west1-docker.pkg.dev/$PROJECT_ID/wp-gcp-iac/wp-image:tag1', '.' ]
+images:
+- 'us-west1-docker.pkg.dev/$PROJECT_ID/wp-gcp-iac/wp-image:tag1'
